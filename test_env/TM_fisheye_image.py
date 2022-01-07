@@ -64,6 +64,7 @@ def extract_target(sample_image):
     else:
       location = max_loc
     
+    
     bottom_right = (location[0] + W, location[1] + H)
     cv2.rectangle(src2, location,bottom_right, [255,255,255], 5)
     image_resized = cv2.resize(src2, (1280,720))
@@ -81,6 +82,8 @@ def extract_target(sample_image):
   region_of_interest = source[ location[1] : location[1] + W , location[0] : location[0] + H  ]
   # Writing the Area detected in the square detected into an image at the path specified in the first varaible in imwrite function
   cv2.imwrite("images\Cropped_master.png",region_of_interest)
+  #the function returns the co-ordinates for the Top left and the bottom right of the square 
+  return(location,bottom_right)
 
 extract_target(sample_image)
 
