@@ -16,32 +16,32 @@ sample_image = cv2.imread("images\Master_image.png",cv2.IMREAD_COLOR)
 
 #funtion to extract the square from master image
 def extract_target(sample_image):
-  source = sample_image
+  source_image = sample_image
   #importing the template
-  template = cv2.imread("images\\rawimage5_template.png")
+  template_image = cv2.imread("images\\rawimage5_template.png")
 
-  #display the image preview, the image_resized variable is used to resize the image into a viewable window of smaller size 
-  image_resized = cv2.resize(source, (1280,720))
-  cv2.imshow('Preview', image_resized) 
+  #display the image preview, the image_preview variable is used to resize the image into a viewable window of smaller size 
+  image_preview = cv2.resize(source_image, (1280,720))
+  cv2.imshow('Preview', image_preview) 
   cv2.waitKey(0) 
 
   #converting to grayscale to make template matching easy 
   #the cvtColor function used to convert from RGB to greyscale takes 2 parameters as input, 
   # 1) object to apply color change
   # 2)the color space conversion code 
-  source = cv2.cvtColor(source, cv2.COLOR_RGB2GRAY)
-  template = cv2.cvtColor(template, cv2.COLOR_RGB2GRAY) 
+  source_image = cv2.cvtColor(source_image, cv2.COLOR_RGB2GRAY)
+  template_image = cv2.cvtColor(template_image, cv2.COLOR_RGB2GRAY) 
 
   #Preview image in greyscale
-  image_resized = cv2.resize(source, (1280,720))
-  cv2.imshow('Preview Greyscaled', image_resized)
+  image_preview = cv2.resize(source_image, (1280,720))
+  cv2.imshow('Preview Greyscaled', image_preview)
   cv2.waitKey(0)  
 
   #capturing the height and width of master image using default .shape method
-  height, width  = source.shape
+  height, width  = source_image.shape
 
   #capturing the height and width of template using default .shape method
-  H, W  = template.shape
+  H, W  = template_image.shape
 
   #a list of all the methods to see results from all the methods 
   # methods = [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR,cv2.TM_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
@@ -50,12 +50,12 @@ def extract_target(sample_image):
 
   #this loop runs for every variable in the method list containing names of every variable to use
   for method in method_s:
-    src2 = source.copy()
+    src2 = source_image.copy()
     #OpenCV funtion for template matching, takes 3 inputs 
     # 1) Image to search for template in 
     # 2) Image to use as a template
     # 3) Method to use for template matching 
-    result = cv2.matchTemplate(src2, template, method)
+    result = cv2.matchTemplate(src2, template_image, method)
     #minMaxLoc goes through the matrix and find the minimum and the maximum value. Note that the input image has to be grayscale.
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
     print("Found at cordinates" + str(min_loc))
@@ -67,8 +67,8 @@ def extract_target(sample_image):
     
     bottom_right = (location[0] + W, location[1] + H)
     cv2.rectangle(src2, location,bottom_right, [255,255,255], 5)
-    image_resized = cv2.resize(src2, (1280,720))
-    cv2.imshow('Template matched',image_resized)
+    image_preview = cv2.resize(src2, (1280,720))
+    cv2.imshow('Template matched',image_preview)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
@@ -79,7 +79,7 @@ def extract_target(sample_image):
   print("X : "+str(x_diff))
   print("Y : "+str(y_diff))
 
-  region_of_interest = source[ location[1] : location[1] + W , location[0] : location[0] + H  ]
+  region_of_interest = source_image[ location[1] : location[1] + W , location[0] : location[0] + H  ]
   # Writing the Area detected in the square detected into an image at the path specified in the first varaible in imwrite function
   cv2.imwrite("images\Cropped_master.png",region_of_interest)
   #the function returns the co-ordinates for the Top left and the bottom right of the square 
@@ -94,10 +94,3 @@ print(a,b)
 # X : 0
 # Y : 0
 # (551, 151) (1432, 987)
-
-
-
-
-
-
-
