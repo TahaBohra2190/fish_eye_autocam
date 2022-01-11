@@ -12,7 +12,7 @@ It takes the image captured in the main file and uses template matching to find 
 import cv2
 
 #Reading the master image (hardcoded for now)
-sample_image = cv2.imread("images\Master_image_inverted.png",cv2.IMREAD_COLOR)
+sample_image = cv2.imread("images\Master_image.png",cv2.IMREAD_COLOR)
 
 #funtion to extract the square from master image
 def extract_target(sample_image):
@@ -38,10 +38,10 @@ def extract_target(sample_image):
   cv2.waitKey(0)  
 
   #capturing the height and width of master image using default .shape method
-  height, width , channelss = source.shape
+  height, width  = source.shape
 
   #capturing the height and width of template using default .shape method
-  H, W , C = template.shape
+  H, W  = template.shape
 
   #a list of all the methods to see results from all the methods 
   # methods = [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR,cv2.TM_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
@@ -85,11 +85,15 @@ def extract_target(sample_image):
   #the function returns the co-ordinates for the Top left and the bottom right of the square 
   return(location,bottom_right)
 
-extract_target(sample_image)
+a , b = extract_target(sample_image)
+print(a,b)
 
-
-
-
+# Expected output should be of the form
+# Found at cordinates(551, 151)
+# Offset
+# X : 0
+# Y : 0
+# (551, 151) (1432, 987)
 
 
 
