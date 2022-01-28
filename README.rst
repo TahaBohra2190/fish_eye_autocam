@@ -1,10 +1,16 @@
-AutoCamera Test Project 04 Jan 2022
-========================
+# **READ ME**
 
+Prerequisites: 
 
-========================
-Read me:
+Docker 
 
----------------
+Commands to set up flask server :
 
-If you want to learn more about ``setup.py`` files, check out `this repository <https://github.com/kennethreitz/setup.py>`_.
+1) ``docker build --tag <name> .``
+
+2) ``docker run -d -p 5000:5000 <name>``
+
+3) ``curl -F "file1=@<path/to/test_image.png>" -F "file2=@<path/to/perfect_image.png>" http://localhost:5000/<cam_id>``
+  NOTE : Path for images can be absolute or relative
+  
+Response generated is a JSON Object.
